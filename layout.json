@@ -1,0 +1,105 @@
+{
+	"globalNavigation": {
+		"type": "tabbedNavigation",
+		"tabInfo": {
+			"activeTintColor": "tomato",
+			"inactiveTintColor": "gray",
+			"tabs": [
+				{
+					"name": "Restaurants",
+					"screenName": "RestaurantsScreen",
+					"iconName": "md-restaurant",
+					"screenHierarchy": {
+						"screenType": "List",
+						"spinner": {
+							"size": 50,
+							"animating": true
+						},
+						"listView": {
+							"backgroundColor": "white",
+							"darkModeBackgroundColor": "black",
+							"row": {
+								"backgroundColor": "white",
+								"darkModeBackgroundColor": "black",
+								"action": {
+									"onPress": "",
+									"destination": {
+										"screen": "RestaurantDetail"
+									}
+								}
+							}
+						}
+					},
+					"navigationHierarchy": {
+						"screens": {
+							"RestaurantDetail": {
+								"screenName": "RestaurantDetailScreen",
+								"screenHierarchy": {
+									"screenType": "Detail",
+									"card": {},
+									"accordionList": {
+										"selectedItemColor": "purple"
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					"name": "Map",
+					"screenName": "MapScreen",
+					"iconName": "md-map",
+                    "screenHierarchy": {
+						"screenType": "Map",
+						"mapView": {
+							"size": {
+                                "width": "100%",
+                                "height": "100%"
+                            }
+						}
+					},
+                    "navigationHierarchy": {
+						"screens": {
+							"RestaurantDetail": {
+								"screenName": "RestaurantDetailScreen",
+								"screenHierarchy": {
+									"screenType": "Detail",
+									"card": {},
+									"accordionList": {
+										"selectedItemColor": "purple"
+									}
+								}
+							}
+						}
+					}
+				},
+				{
+					"name": "Settings",
+					"screenName": "SettingsScreen",
+					"iconName": "md-settings",
+					"screenHierarchy": {
+						"screenType": "List",
+						"spinner": {
+							"size": 50,
+							"animating": true
+						},
+						"listView": {
+							"backgroundColor": "white",
+							"darkModeBackgroundColor": "black",
+							"row": {
+								"backgroundColor": "white",
+								"darkModeBackgroundColor": "black",
+								"action": {
+									"onPress": "",
+									"destination": {
+										"screen": "RestaurantDetail"
+									}
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+}

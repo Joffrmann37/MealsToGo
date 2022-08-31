@@ -1,0 +1,182 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "title": "Breakfast",
+            "iconName": "sausage",
+            "isExpanded": true,
+            "items": [
+                {
+                    "name": "Deluxe Breakfast",
+                    "price": 9.50,
+                    "image": "https://static.wikia.nocookie.net/ronaldmcdonald/images/0/0e/Deluxe_Big_Breakfast.jpg/revision/latest?cb=20120125174413",
+                    "modifiers": [
+                        {
+                            "name": "Syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Butter",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra butter",
+                            "price": 0.50
+                        }
+                    ],
+                    "description": "This deluxe breakfast comes with our famous blueberry pancakes, along with sausage, bacon, eggs and orange juice."
+                },
+                {
+                    "name": "Waffles",
+                    "price": 8.00,
+                    "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/waffle-1-e8718a1.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Butter",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra butter",
+                            "price": 0.50
+                        }
+                    ],
+                    "description": "Our waffles are some of the best in the state and come with your choice of sausage or bacon."
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Lunch",
+            "iconName": "hamburger",
+            "isExpanded": false,
+            "items": [
+                {
+                    "name": "Cheeseburger",
+                    "price": 10.50,
+                    "image": "https://www.seriouseats.com/thmb/EoN3iYO24gJus8ndz_zLVxYcGvU=/735x0/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2013__07__20130723-bacon-weave-food-lab-burger-step-by-step-27-4f43a832acb242789dbc4133810a281f.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Ketchup",
+                            "price": 0
+                        },
+                        {
+                            "name": "Mayonnaise",
+                            "price": 0
+                        },
+                        {
+                            "name": "Cheese",
+                            "price": 0,
+                            "types": [
+                                "Swiss",
+                                "American",
+                                "Provolone"
+                            ]
+                        }
+                    ],
+                    "description": "This cheeseburger is a flame-broiled treat guaranteed to have you coming back for more."
+                },
+                {
+                    "name": "Chicken Club",
+                    "price": 8,
+                    "image": "https://images.eatsmarter.com/sites/default/files/styles/1600x1200/public/chicken-club-sandwich-519624.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Mayonnaise",
+                            "price": 0
+                        },
+                        {
+                            "name": "Cheese",
+                            "price": 0,
+                            "types": [
+                                "Swiss",
+                                "American",
+                                "Provolone"
+                            ]
+                        }
+                    ],
+                    "description": "This cheeseburger is a flame-broiled treat guaranteed to have you coming back for more."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Dinner",
+            "iconName": "food-steak",
+            "isExpanded": false,
+            "items": [
+                {
+                    "name": "Steak",
+                    "price": 25.00,
+                    "image": "https://tipbuzz.com/wp-content/uploads/T-bone-oven.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Steak Sauce",
+                            "price": 0
+                        },
+                        {
+                            "name": "Worcestershire Sauce",
+                            "price": 0
+                        }
+                    ],
+                    "description": "This T-bone steak is sure to blow your mind and have you coming back for more."
+                },
+                {
+                    "name": "Salmon",
+                    "price": 15,
+                    "image": "https://aubreyskitchen.com/wp-content/uploads/2021/06/wild-alaskan-sockeye-salmon.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Lemon Butter Sauce",
+                            "price": 0
+                        }
+                    ],
+                    "description": "Our baked wild-caught salmon makes for a healthy and delicious entree."
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Drinks",
+            "iconName": "cup",
+            "isExpanded": false,
+            "items": [
+                {
+                    "name": "Coca-Cola",
+                    "price": 1.00,
+                    "image": "https://cdn.shopify.com/s/files/1/1576/9979/products/CokeCan_1334x.png?v=1594893838",
+                    "modifiers": [
+                        {
+                            "name": "Ice",
+                            "price": 0
+                        }
+                    ],
+                    "description": "None"
+                },
+                {
+                    "name": "Sprite",
+                    "price": 1.00,
+                    "image": "https://www.americansweets.co.uk/image/cache/catalog/american-soda/sprite/sprite-lemon-lime-12fl-oz-355ml-800x800.png",
+                    "modifiers": [
+                        {
+                            "name": "ICE",
+                            "price": 0
+                        }
+                    ],
+                    "description": "None"
+                }
+            ]
+        }
+    ]
+}
