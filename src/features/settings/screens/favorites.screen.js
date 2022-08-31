@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components/native";
 
-import { Spinner } from "../../../components/ui/spinner";
 import { Text } from "../../../components/typography/text.component";
 import { Container } from "../../../components/utilities/safe-area.component";
 import { FavoritesContext } from "../../../services/favorites/favorites.context";

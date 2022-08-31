@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import appLayout from "../../../../layout.json";
+import { FadeInView } from "../../../components/animations/fade.animation";
 
 const onRowPress = (nav, destination, item) => {
   nav.navigate(destination.screen, {
@@ -27,7 +28,9 @@ export const RestaurantRow = ({ item, navigation }) => {
       }
     >
       <Spacer>
-        <RestaurantInfoCard restaurant={item} />
+        <FadeInView>
+          <RestaurantInfoCard restaurant={item} />
+        </FadeInView>
       </Spacer>
     </TouchableOpacity>
   );
