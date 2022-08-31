@@ -1,0 +1,13 @@
+export const restaurantInfoCard = "RestaurantInfoCard";
+export const restaurantCard = "RestaurantCard";
+export const restaurantCardCover = "RestaurantCardCover";
+export const android = "android";
+export const restaurantsScreen = "RestaurantsScreen";
+export const title = "Title";
+export const container = "Container";
+export const search = "Search";
+export const list = "List";
+export const searchPlaceholder = "Search for a location";
+export const statusBarStyleAuto = "Auto";
+export const status = "Status";
+export const app = "App";

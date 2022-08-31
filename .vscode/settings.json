@@ -1,0 +1,17 @@
+{
+	"prettier.useTabs": true,
+	"eslint.alwaysShowStatus": true,
+	"eslint.format.enable": true,
+	"eslint.workingDirectories": [
+		{
+			"directory": "front",
+			"changeProcessCWD": true
+		}
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"eslint.validate": ["javascript"],
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"editor.formatOnSave": true
+}
