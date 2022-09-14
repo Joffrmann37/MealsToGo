@@ -1,9 +1,8 @@
 import camelize from "camelize";
+import { host, isMock } from "../../utils/env";
 
 export const restaurantsRequest = (location) => {
-  return fetch(
-    `https://us-central1-mealstogo-46bd5.cloudfunctions.net/placesNearby?location=${location}`
-  )
+  return fetch(`${host}/placesNearby?location=${location}&mock=${isMock}`)
     .then((res) => res.json())
     .then((data) => data);
 };
@@ -17,6 +16,5 @@ export const restaurantsTransform = ({ results = [] }) => {
       isClosedTemporarily: restaurant.business_status === "CLOSED_TEMPORARILY",
     };
   });
-  //console.log(camelize(mappedResults));
   return camelize(mappedResults);
 };

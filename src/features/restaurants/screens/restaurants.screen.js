@@ -1,17 +1,23 @@
 import React, { useContext, useState } from "react";
 import { Container } from "../../../components/utilities/safe-area.component";
+import { LocationContext } from "../../../services/location/location.context";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import { FavoritesContext } from "../../../services/favorites/favorites.context";
 import { Spinner } from "../../../components/ui/spinner";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
 import appLayout from "../../../../layout.json";
 import { Search } from "../components/search.component";
 import { FavoritesBar } from "../../../components/favorites/favorites-bar.component";
 import { RestaurantListings } from "../components/restaurant-list.component";
 
 export const RestaurantsScreen = ({ navigation }) => {
-  const { isLoading, restaurants } = useContext(RestaurantsContext);
+  const { error: locationError } = useContext(LocationContext);
+  const { isLoading, restaurants, error } = useContext(RestaurantsContext);
   const { favorites } = useContext(FavoritesContext);
   const [isToggled, setIsToggled] = useState(false);
+
+  const hasError = !!error || !!locationError;
 
   return (
     <Container>
@@ -34,7 +40,14 @@ export const RestaurantsScreen = ({ navigation }) => {
           }
         />
       ) : null}
-      <RestaurantListings navigation={navigation} restaurants={restaurants} />
+      {hasError && (
+        <Spacer position="bottom" size="small">
+          <Text variant="error">Something went wrong retrieving the data.</Text>
+        </Spacer>
+      )}
+      {!hasError && (
+        <RestaurantListings navigation={navigation} restaurants={restaurants} />
+      )}
     </Container>
   );
 };
