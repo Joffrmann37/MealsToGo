@@ -14,12 +14,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // firebase
-    //   .auth()
-    //   .signOut()
-    //   .then(() => console.log("User signed out!"));
-    // AsyncStorage.removeItem("currentUser");
-    // setIsAuthenticated(false);
     onLoginCheck();
   }, [isAuthenticated, error, user]);
 
@@ -36,7 +30,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .then((u) => {})
       .catch((err) => {
-        console.log("getting error");
         setError(err.toString().replace("FirebaseError: Firebase: ", ""));
         setIsLoading(false);
         setIsAuthenticated(false);
@@ -55,7 +48,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       .createUserWithEmailAndPassword(email, password)
       .then((retrievedUser) => {
         if (retrievedUser) {
-          console.log("Got user");
           setUser(retrievedUser);
           setIsAuthenticated(true);
           setIsLoading(false);
@@ -63,7 +55,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .then((u) => {})
       .catch((err) => {
-        console.log("getting error");
         setError(err.toString().replace("FirebaseError: Firebase: ", ""));
         setIsLoading(false);
       });
@@ -73,7 +64,6 @@ export const AuthenticationContextProvider = ({ children }) => {
     try {
       await AsyncStorage.setItem("currentUser", JSON.stringify(u));
     } catch (error) {
-      console.log(error);
       // Error saving data
     }
   };

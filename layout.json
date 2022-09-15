@@ -24,7 +24,7 @@
 								"action": {
 									"onPress": "",
 									"destination": {
-										"screen": "RestaurantDetail"
+										"screen": "Restaurant Detail"
 									}
 								}
 							}

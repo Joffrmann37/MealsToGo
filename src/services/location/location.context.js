@@ -20,19 +20,17 @@ export const LocationContextProvider = ({ children }) => {
       // don't do anything
       return;
     }
-    setTimeout(() => {
-      locationRequest(keyword.toLowerCase())
-        .then(locationTransform)
-        .then((result) => {
-          setError(null);
-          setIsLoading(false);
-          setLocation(result);
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          setError(err);
-        });
-    }, 2000);
+    locationRequest(keyword.toLowerCase())
+      .then(locationTransform)
+      .then((result) => {
+        setError(null);
+        setIsLoading(false);
+        setLocation(result);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err);
+      });
   }, [keyword]);
 
   return (

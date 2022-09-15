@@ -13,11 +13,10 @@ import { RestaurantListings } from "../components/restaurant-list.component";
 
 export const RestaurantsScreen = ({ navigation }) => {
   const { error: locationError } = useContext(LocationContext);
-  const { isLoading, restaurants, error } = useContext(RestaurantsContext);
+  const { isLoading, restaurants } = useContext(RestaurantsContext);
   const { favorites } = useContext(FavoritesContext);
   const [isToggled, setIsToggled] = useState(false);
-
-  const hasError = !!error || !!locationError;
+  const hasError = !!locationError;
 
   return (
     <Container>
@@ -40,7 +39,7 @@ export const RestaurantsScreen = ({ navigation }) => {
           }
         />
       ) : null}
-      {hasError && (
+      {hasError && !isLoading && (
         <Spacer position="bottom" size="small">
           <Text variant="error">Something went wrong retrieving the data.</Text>
         </Spacer>
