@@ -23,7 +23,6 @@ module.exports.placesRequest = (request, response, client) => {
   const { location, mock } = url.parse(request.url.toLowerCase(), true).query;
   if (mock === "true") {
     const data = mocks[location];
-    console.log("Is mock");
     if (data) {
       data.results = data.results.map(addMockImage);
     }

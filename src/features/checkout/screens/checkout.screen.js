@@ -9,6 +9,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { CheckoutButton } from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card.component";
+import { CheckoutCountLabel } from "../components/checkout.styles";
 
 export const CheckoutScreen = ({ route, navigation }) => {
   const [name, setName] = useState("");
@@ -33,7 +34,10 @@ export const CheckoutScreen = ({ route, navigation }) => {
                     : `${item.name}`
                 }
                 titleNumberOfLines={3}
-                description={`$${parseFloat(item.price).toFixed(2)}`}
+                description={`$${parseFloat(item.price * item.count).toFixed(
+                  2
+                )}`}
+                key={index}
                 // eslint-disable-next-line react/no-unstable-nested-components
                 left={() => (
                   <ItemImage
@@ -41,6 +45,12 @@ export const CheckoutScreen = ({ route, navigation }) => {
                       uri: item.image,
                     }}
                   />
+                )}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                right={() => (
+                  <CheckoutCountLabel>
+                    Quantity: {item.count}
+                  </CheckoutCountLabel>
                 )}
               />
             );

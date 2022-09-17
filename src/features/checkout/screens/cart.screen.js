@@ -5,9 +5,14 @@ import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Container } from "../../../components/utilities/safe-area.component";
 import { CartContext } from "../../../services/cart/cart.context";
-import { CartIconContainer, CartIcon } from "../components/checkout.styles";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card.component";
-import { CheckoutButton, ClearButton } from "../components/checkout.styles";
+import { CartAdjuster } from "../components/cart-adjuster";
+import {
+  CartIconContainer,
+  CartIcon,
+  CheckoutButton,
+  ClearButton,
+} from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 
 export const CartScreen = ({ route, navigation }) => {
@@ -42,7 +47,9 @@ export const CartScreen = ({ route, navigation }) => {
                       : `${item.name}`
                   }
                   titleNumberOfLines={3}
-                  description={`$${parseFloat(item.price).toFixed(2)}`}
+                  description={`$${parseFloat(item.price * item.count).toFixed(
+                    2
+                  )}`}
                   // eslint-disable-next-line react/no-unstable-nested-components
                   left={() => (
                     <ItemImage
@@ -50,6 +57,10 @@ export const CartScreen = ({ route, navigation }) => {
                         uri: item.image,
                       }}
                     />
+                  )}
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  right={() => (
+                    <CartAdjuster item={item} restaurant={restaurants[index]} />
                   )}
                 />
               );

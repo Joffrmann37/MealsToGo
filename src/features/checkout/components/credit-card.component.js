@@ -6,7 +6,6 @@ export const CustomCreditCardInput = ({ name }) => {
   const onChange = async (formData) => {
     const { values, status } = formData;
     const isIncomplete = Object.values(status).includes("incomplete");
-    console.log(isIncomplete);
     const card = {
       number: values.number,
       exp_month:

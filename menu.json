@@ -7,6 +7,7 @@
             "isExpanded": true,
             "items": [
                 {
+                    "id": 1,
                     "name": "Deluxe Breakfast",
                     "price": 9.50,
                     "image": "https://static.wikia.nocookie.net/ronaldmcdonald/images/0/0e/Deluxe_Big_Breakfast.jpg/revision/latest?cb=20120125174413",
@@ -31,6 +32,7 @@
                     "description": "This deluxe breakfast comes with our famous blueberry pancakes, along with sausage, bacon, eggs and orange juice."
                 },
                 {
+                    "id": 2,
                     "name": "Waffles",
                     "price": 8.00,
                     "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/waffle-1-e8718a1.jpg",
@@ -63,6 +65,7 @@
             "isExpanded": false,
             "items": [
                 {
+                    "id": 1,
                     "name": "Cheeseburger",
                     "price": 10.50,
                     "image": "https://www.seriouseats.com/thmb/EoN3iYO24gJus8ndz_zLVxYcGvU=/735x0/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__recipes__images__2013__07__20130723-bacon-weave-food-lab-burger-step-by-step-27-4f43a832acb242789dbc4133810a281f.jpg",
@@ -88,6 +91,7 @@
                     "description": "This cheeseburger is a flame-broiled treat guaranteed to have you coming back for more."
                 },
                 {
+                    "id": 2,
                     "name": "Chicken Club",
                     "price": 8,
                     "image": "https://images.eatsmarter.com/sites/default/files/styles/1600x1200/public/chicken-club-sandwich-519624.jpg",
@@ -117,6 +121,7 @@
             "isExpanded": false,
             "items": [
                 {
+                    "id": 1,
                     "name": "Steak",
                     "price": 25.00,
                     "image": "https://tipbuzz.com/wp-content/uploads/T-bone-oven.jpg",
@@ -133,6 +138,7 @@
                     "description": "This T-bone steak is sure to blow your mind and have you coming back for more."
                 },
                 {
+                    "id": 2,
                     "name": "Salmon",
                     "price": 15,
                     "image": "https://aubreyskitchen.com/wp-content/uploads/2021/06/wild-alaskan-sockeye-salmon.jpg",
@@ -153,6 +159,7 @@
             "isExpanded": false,
             "items": [
                 {
+                    "id": 1,
                     "name": "Coca-Cola",
                     "price": 1.00,
                     "image": "https://cdn.shopify.com/s/files/1/1576/9979/products/CokeCan_1334x.png?v=1594893838",
@@ -165,6 +172,7 @@
                     "description": "None"
                 },
                 {
+                    "id": 2,
                     "name": "Sprite",
                     "price": 1.00,
                     "image": "https://www.americansweets.co.uk/image/cache/catalog/american-soda/sprite/sprite-lemon-lime-12fl-oz-355ml-800x800.png",

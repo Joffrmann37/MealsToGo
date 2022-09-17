@@ -1,5 +1,11 @@
 import styled from "styled-components/native";
+import { TouchableOpacity } from "react-native";
 import { Avatar, TextInput, Button } from "react-native-paper";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { colors } from "../../../infrastructure/theme/colors";
 
 export const CartIconContainer = styled.View`
@@ -7,10 +13,64 @@ export const CartIconContainer = styled.View`
   justify-content: center;
   flex: 1;
 `;
+
 export const CartIcon = styled(Avatar.Icon).attrs({
   size: 128,
 })`
   background-color: ${(props) => props.bg || props.theme.colors.brand.primary};
+`;
+
+export const CartDelete = styled(AntDesign).attrs({
+  name: "delete",
+  size: 20,
+})`
+  padding-top: ${(props) => props.theme.spacing.sizes.small};
+`;
+
+export const AddCartButton = styled.TouchableOpacity`
+  padding-top: ${(props) => props.theme.spacing.sizes.small};
+  padding-left: ${(props) => props.theme.spacing.sizes.small};
+  padding-right: ${(props) => props.theme.spacing.sizes.xsmall};
+`;
+
+export const CartIncrement = styled(Ionicons).attrs({
+  name: "add-circle-outline",
+  size: 20,
+})``;
+
+export const CartCountLabel = styled.Text`
+    font-family: ${(props) => props.theme.fonts.names.body}
+    font-size: ${(props) => props.theme.fonts.sizes.caption}
+    color: ${(props) => props.theme.colors.ui.primary};
+    padding-top: ${(props) => props.theme.spacing.sizes.small};
+    padding-left: ${(props) => props.theme.spacing.sizes.small};
+    padding-right: ${(props) => props.theme.spacing.sizes.xsmall};
+`;
+
+export const CheckoutCountLabel = styled.Text`
+    font-family: ${(props) => props.theme.fonts.names.body}
+    font-size: ${(props) => props.theme.fonts.sizes.caption}
+    color: ${(props) => props.theme.colors.ui.primary};
+    padding-top: ${(props) => props.theme.spacing.sizes.small};
+    padding-right: ${(props) => props.theme.spacing.sizes.large};
+`;
+
+export const DeleteCartButton = styled.TouchableOpacity`
+  padding-top: ${(props) => props.theme.spacing.sizes.small};
+  padding-left: ${(props) => props.theme.spacing.sizes.small};
+  padding-right: ${(props) => props.theme.spacing.sizes.prettyLarge};
+`;
+
+export const CartDecrement = styled(MaterialCommunityIcons).attrs({
+  name: "minus-circle-outline",
+  size: 20,
+})``;
+
+export const CartRightView = styled.View`
+  flex-direction: row;
+  flex: 1;
+  margin-right: ${(props) => props.theme.spacing.sizes.large};
+  margin-top: ${(props) => props.theme.spacing.sizes.xsmall};
 `;
 
 export const NameInput = styled(TextInput)`

@@ -106,6 +106,7 @@
                 "xsmall": "8px",
                 "small": "16px",
                 "medium": "32px",
+                "prettyLarge": "48px",
                 "large": "64px"
             },
             "positions": {
