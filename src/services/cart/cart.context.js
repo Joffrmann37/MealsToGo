@@ -9,7 +9,6 @@ export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
 
   const [cart, setCart] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
 
   const [sum, setSum] = useState(0);
 
@@ -18,85 +17,140 @@ export const CartContextProvider = ({ children }) => {
       setSum(0);
       return;
     }
-    const newSum = cart.reduce((acc, item) => {
-      return (acc += item.price * item.count);
+
+    const newSum = cart.reduce((acc, restaurant) => {
+      let cost = 0;
+      restaurant.items.forEach((item) => {
+        cost += item.price * item.count;
+      });
+      return (acc += cost);
     }, 0);
+    console.log(parseFloat(newSum).toFixed(2));
     setSum(parseFloat(newSum).toFixed(2));
   }, [cart]);
 
   const add = (item, rst) => {
-    const filteredItems = cart.filter(
-      (filteredItem) =>
-        item.id === filteredItem.id && item.name === filteredItem.name
+    item.restaurantId = rst.placeId;
+    const filteredRestaurants = JSON.parse(JSON.stringify(cart)).filter(
+      (filteredRestaurant) => rst.placeId === filteredRestaurant.placeId
     );
-    if (filteredItems.length > 0) {
-      const filteredItemsNotIncluded = cart.filter(
+    if (rst.items) {
+      const items = JSON.parse(JSON.stringify(rst.items));
+      const filteredItems = items.filter(
         (filteredItem) =>
-          item.id !== filteredItem.id && item.name !== filteredItem.name
+          item.id === filteredItem.id &&
+          item.restaurantId === filteredItem.restaurantId
       );
-      console.log(`Filtered length: ${filteredItems.length}`);
-      item.count += 1;
-      setCart([...filteredItemsNotIncluded, item]);
-    } else {
-      if (item.count) {
+      if (
+        filteredItems.length > 0 &&
+        filteredRestaurants.length > 0 &&
+        item.restaurantId === filteredItems[0].restaurantId
+      ) {
+        console.log("Does include");
         item.count += 1;
       } else {
         item.count = 1;
+        rst.items.push(item);
       }
-      setCart([...cart, item]);
+    } else {
+      item.count = 1;
+      rst.items = [item];
     }
-    setRestaurants([...restaurants, rst]);
+
+    if (!cart.includes(rst)) {
+      setCart([...cart, rst]);
+    } else {
+      setCart([...cart]);
+    }
   };
 
   const remove = (item, rst, shouldForceDeleteItem = false) => {
-    // const filteredItemsNotIncluded = cart.filter(
-    //   (filteredItem) =>
-    //     item.id !== filteredItem.id && item.name !== filteredItem.name
-    // );
-    //console.log(cart);
-    //cart.splice(cart.length - 1, 1);
-    const filteredItems = cart.filter(
+    const filteredItems = rst.items.filter(
       (filteredItem) =>
         item.id === filteredItem.id && item.name === filteredItem.name
     );
-    const filteredItemsNotIncluded = cart.filter(
+
+    const filteredItemsNotIncluded = rst.items.filter(
       (filteredItem) =>
         item.id !== filteredItem.id && item.name !== filteredItem.name
     );
 
+    const filteredRestaurants = cart.filter(
+      (filteredRestaurant) =>
+        rst.placeId === filteredRestaurant.placeId &&
+        rst.name === filteredRestaurant.name
+    );
+
+    const filteredRestaurantsNotIncluded = cart.filter(
+      (filteredRestaurant) =>
+        rst.placeId !== filteredRestaurant.placeId &&
+        rst.name !== filteredRestaurant.name
+    );
+
     if (shouldForceDeleteItem) {
       item.count = 0;
-    } else {
-      item.count -= 1;
-    }
-    if (filteredItems.length > 0) {
       if (item.count === 0) {
-        console.log("Nothing");
-        if (filteredItemsNotIncluded.length === 0) {
-          console.log("Noooo");
-          setCart([]);
-          return;
+        rst.items = filteredItemsNotIncluded;
+        if (filteredRestaurants.length > 0) {
+          const arr =
+            rst.items.length > 0
+              ? [...filteredRestaurants, ...filteredRestaurantsNotIncluded]
+              : [...filteredRestaurantsNotIncluded];
+          setCart(arr);
+        } else if (filteredRestaurantsNotIncluded.length) {
+          setCart([filteredRestaurantsNotIncluded]);
         } else {
-          setCart(filteredItemsNotIncluded);
+          clear();
         }
       } else {
-        setCart([...filteredItemsNotIncluded, item]);
-      }
-    } else if (item.count) {
-      if (item.count === 0) {
-        console.log("Nothing");
-        setCart([]);
+        if (filteredRestaurantsNotIncluded.length) {
+          console.log("Filtered restaurants not included");
+          if (filteredRestaurants.length > 0) {
+            const arr =
+              rst.items.length > 0
+                ? [...filteredRestaurants, ...filteredRestaurantsNotIncluded]
+                : [...filteredRestaurantsNotIncluded];
+            setCart(arr);
+          } else {
+            setCart([...filteredRestaurantsNotIncluded]);
+          }
+        } else if (rst.items.length) {
+          setCart([...filteredRestaurants]);
+        } else {
+          clear();
+        }
       }
     } else {
-      item.count = 1;
+      item.count -= 1;
+      if (item.count === 0) {
+        rst.items = filteredItemsNotIncluded;
+        if (filteredRestaurantsNotIncluded.length) {
+          if (filteredRestaurants.length > 0) {
+            const arr =
+              rst.items.length > 0
+                ? [...filteredRestaurants, ...filteredRestaurantsNotIncluded]
+                : [...filteredRestaurantsNotIncluded];
+            setCart(arr);
+          } else {
+            setCart([filteredRestaurantsNotIncluded]);
+          }
+        } else if (rst.items.length) {
+          console.log("kdshf");
+          setCart([...filteredRestaurants]);
+        } else {
+          console.log("Clearing");
+          clear();
+        }
+      } else {
+        setCart([...filteredRestaurants]);
+      }
     }
 
-    setRestaurants([...restaurants, rst]);
+    console.log(item.count);
   };
 
   const clear = () => {
     setCart([]);
-    setRestaurants([]);
   };
 
   return (
@@ -106,7 +160,6 @@ export const CartContextProvider = ({ children }) => {
         removeFromCart: remove,
         clearCart: clear,
         setSum,
-        restaurants,
         cart,
         sum,
       }}

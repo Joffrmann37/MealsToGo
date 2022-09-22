@@ -55,6 +55,56 @@
                         }
                     ],
                     "description": "Our waffles are some of the best in the state and come with your choice of sausage or bacon."
+                },
+                {
+                    "id": 3,
+                    "name": "Deluxe Breakfast 2",
+                    "price": 9.50,
+                    "image": "https://static.wikia.nocookie.net/ronaldmcdonald/images/0/0e/Deluxe_Big_Breakfast.jpg/revision/latest?cb=20120125174413",
+                    "modifiers": [
+                        {
+                            "name": "Syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Butter",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra butter",
+                            "price": 0.50
+                        }
+                    ],
+                    "description": "This deluxe breakfast comes with our famous blueberry pancakes, along with sausage, bacon, eggs and orange juice."
+                },
+                {
+                    "id": 4,
+                    "name": "Waffles 2",
+                    "price": 8.00,
+                    "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/waffle-1-e8718a1.jpg",
+                    "modifiers": [
+                        {
+                            "name": "Syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Butter",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra syrup",
+                            "price": 0.50
+                        },
+                        {
+                            "name": "Extra butter",
+                            "price": 0.50
+                        }
+                    ],
+                    "description": "Our waffles are some of the best in the state and come with your choice of sausage or bacon."
                 }
             ]
         },

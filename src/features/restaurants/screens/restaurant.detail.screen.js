@@ -32,12 +32,12 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
       <ScrollView>
         <List.Section
           title="Menu"
-          key={menu.categories.map(
+          key={restaurant.categories.map(
             (category) => `${category.title}-${category.id}`
           )}
         >
-          {menu.categories.length > 0 &&
-            menu.categories.map((category) => (
+          {restaurant.categories.length > 0 &&
+            restaurant.categories.map((category) => (
               <AccordionItem
                 title={category.title}
                 // eslint-disable-next-line react/no-unstable-nested-components

@@ -6,11 +6,18 @@ import { CartDeleteItemTypeButton } from "./cart-delete-item-type";
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const CartAdjuster = ({ item, restaurant }) => {
+  let filteredItems = restaurant.items.filter(
+    (filteredItem) =>
+      item.id === filteredItem.id && item.restaurantId === restaurant.placeId
+  );
   const { addToCart, removeFromCart } = useContext(CartContext);
+  let itemCount = filteredItems.length;
 
   const updateSum = (shouldAdd = true, shouldForceDeleteItem = false) => {
     if (shouldAdd) {
       addToCart(item, restaurant);
+      filteredItems.push(item);
+      console.log(filteredItems.length);
     } else {
       console.log("Removing");
       removeFromCart(item, restaurant, shouldForceDeleteItem);

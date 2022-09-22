@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { List } from "react-native-paper";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -15,8 +15,39 @@ import {
 } from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 
+const MyComponent = ({ restaurant }) => (
+  <View>
+    <RestaurantInfoCard restaurant={restaurant} />
+    {restaurant !== null &&
+      restaurant.items &&
+      restaurant.items.map((item) => {
+        const filteredItems = restaurant.items.filter(
+          (filteredItem) => item.id === filteredItem.id
+        );
+        return (
+          <List.Item
+            title={`${item.name}`}
+            titleNumberOfLines={3}
+            description={`$${parseFloat(item.price * item.count).toFixed(2)}`}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            left={() => (
+              <ItemImage
+                source={{
+                  uri: item.image,
+                }}
+              />
+            )}
+            // eslint-disable-next-line react/no-unstable-nested-components
+            right={() => <CartAdjuster item={item} restaurant={restaurant} />}
+          />
+        );
+      })}
+  </View>
+);
+
 export const CartScreen = ({ route, navigation }) => {
-  const { cart, restaurants, clearCart, sum } = useContext(CartContext);
+  const { cart, clearCart, sum } = useContext(CartContext);
+  const restaurants = cart;
   if (!cart.length || !restaurants.length) {
     return (
       <Container>
@@ -30,42 +61,15 @@ export const CartScreen = ({ route, navigation }) => {
   return (
     <Container>
       <ScrollView>
-        {restaurants.length === 1 && (
-          <RestaurantInfoCard restaurant={restaurants[0]} />
-        )}
         <Spacer position="left" size="xsmall">
           <Spacer position="top" size="small">
             <Text>Your Order</Text>
           </Spacer>
-          <List.Section>
-            {cart.map((item, index) => {
-              return (
-                <List.Item
-                  title={
-                    restaurants.length > 1
-                      ? `${restaurants[index].name}\n${item.name}`
-                      : `${item.name}`
-                  }
-                  titleNumberOfLines={3}
-                  description={`$${parseFloat(item.price * item.count).toFixed(
-                    2
-                  )}`}
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  left={() => (
-                    <ItemImage
-                      source={{
-                        uri: item.image,
-                      }}
-                    />
-                  )}
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  right={() => (
-                    <CartAdjuster item={item} restaurant={restaurants[index]} />
-                  )}
-                />
-              );
-            })}
-          </List.Section>
+          {restaurants.map((restaurant) => {
+            //if (restaurant) {
+            return <MyComponent restaurant={restaurant} />;
+            //}
+          })}
           <Text>Total: ${sum}</Text>
         </Spacer>
         <Spacer position="top" size="xsmall">
