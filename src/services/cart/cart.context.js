@@ -46,7 +46,6 @@ export const CartContextProvider = ({ children }) => {
         filteredRestaurants.length > 0 &&
         item.restaurantId === filteredItems[0].restaurantId
       ) {
-        console.log("Does include");
         item.count += 1;
       } else {
         item.count = 1;
@@ -88,6 +87,7 @@ export const CartContextProvider = ({ children }) => {
     );
 
     if (shouldForceDeleteItem) {
+      console.log("Forcing");
       item.count = 0;
       if (item.count === 0) {
         rst.items = filteredItemsNotIncluded;
@@ -135,21 +135,37 @@ export const CartContextProvider = ({ children }) => {
             setCart([filteredRestaurantsNotIncluded]);
           }
         } else if (rst.items.length) {
-          console.log("kdshf");
           setCart([...filteredRestaurants]);
         } else {
-          console.log("Clearing");
           clear();
         }
       } else {
-        setCart([...filteredRestaurants]);
+        // if (filteredRestaurants.length) {
+        //   console.log(`You have two items now: ${rst.items.length}`);
+        //   const arr =
+        //     rst.items.length > 0
+        //       ? [...filteredRestaurants, ...filteredRestaurantsNotIncluded]
+        //       : [...filteredRestaurantsNotIncluded];
+        //   setCart(arr);
+        // }
+        // const indexOfObject = rst.items.findIndex((itemObj) => {
+        //   return item.id === itemObj.id;
+        // });
+        // rst.items.splice(indexOfObject, 1);
+        // const restaurantIndex = cart.findIndex((restaurantObj) => {
+        //   return rst.placeId === restaurantObj.placeId;
+        // });
+        // console.log(`Index: ${restaurantIndex}`);
+        // cart[restaurantIndex] = rst;
+        setCart([...cart]);
       }
     }
-
-    console.log(item.count);
   };
 
   const clear = () => {
+    cart.forEach((rst) => {
+      rst.items = [];
+    });
     setCart([]);
   };
 

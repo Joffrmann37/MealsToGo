@@ -17,9 +17,7 @@ export const CartAdjuster = ({ item, restaurant }) => {
     if (shouldAdd) {
       addToCart(item, restaurant);
       filteredItems.push(item);
-      console.log(filteredItems.length);
     } else {
-      console.log("Removing");
       removeFromCart(item, restaurant, shouldForceDeleteItem);
     }
   };
