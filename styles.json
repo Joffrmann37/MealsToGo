@@ -54,7 +54,8 @@
             },
             "bg": {
                 "primary": "#FFFFFF",
-                "secondary": "#F1F1F1"
+                "secondary": "#F1F1F1",
+                "transparent": "#00000000"
               },
               "text": {
                 "primary": "#262626",

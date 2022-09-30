@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ScrollView, View } from "react-native";
 import { List } from "react-native-paper";
 import { Text } from "../../../components/typography/text.component";
@@ -12,22 +12,21 @@ import {
   CartIcon,
   CheckoutButton,
   ClearButton,
+  TopBackButton,
 } from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 
-const MyComponent = ({ restaurant }) => (
+export const MyComponent = ({ restaurant, index }) => (
   <View>
-    <RestaurantInfoCard restaurant={restaurant} />
+    <RestaurantInfoCard restaurant={restaurant} key={index} />
     {restaurant !== null &&
       restaurant.items &&
       restaurant.items.map((item) => {
-        const filteredItems = restaurant.items.filter(
-          (filteredItem) => item.id === filteredItem.id
-        );
         return (
           <List.Item
             title={`${item.name}`}
             titleNumberOfLines={3}
+            key={`${item.id}-${index}`}
             description={`$${parseFloat(item.price * item.count).toFixed(2)}`}
             // eslint-disable-next-line react/no-unstable-nested-components
             left={() => (
@@ -46,6 +45,10 @@ const MyComponent = ({ restaurant }) => (
 );
 
 export const CartScreen = ({ route, navigation }) => {
+  const isPresented =
+    route.params !== undefined
+      ? route.params.isPresentedFromAnotherScreen
+      : false;
   const { cart, clearCart, sum } = useContext(CartContext);
   const restaurants = cart;
   if (!cart.length || !restaurants.length) {
@@ -60,24 +63,37 @@ export const CartScreen = ({ route, navigation }) => {
   }
   return (
     <Container>
+      {isPresented && (
+        <Spacer position="top" size="xsmall">
+          <TopBackButton
+            icon="arrow-left"
+            onPress={() => navigation.goBack()}
+          />
+        </Spacer>
+      )}
       <ScrollView>
-        <Spacer position="left" size="xsmall">
+        {isPresented && (
           <Spacer position="top" size="small">
             <Text>Your Order</Text>
           </Spacer>
-          {restaurants.map((restaurant) => {
-            //if (restaurant) {
-            return <MyComponent restaurant={restaurant} />;
-            //}
-          })}
-          <Text>Total: ${sum}</Text>
-        </Spacer>
+        )}
+        {restaurants.map((restaurant, index) => {
+          return (
+            <MyComponent restaurant={restaurant} index={index} key={index} />
+          );
+        })}
+        <Text>Total: ${sum}</Text>
         <Spacer position="top" size="xsmall">
           <CheckoutButton
             icon="cash-register"
             mode="contained"
             onPress={() => {
-              navigation.navigate("Checkout", { cart, sum, restaurants });
+              navigation.navigate("Checkout", {
+                cart,
+                sum,
+                restaurants,
+                isPresentedFromAnotherScreen: isPresented,
+              });
             }}
           >
             Proceed To Checkout

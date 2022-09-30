@@ -1,17 +1,34 @@
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
-import { Avatar, TextInput, Button } from "react-native-paper";
+import {
+  Avatar,
+  TextInput,
+  Button,
+  ActivityIndicator,
+} from "react-native-paper";
 import {
   AntDesign,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { colors } from "../../../infrastructure/theme/colors";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const CartIconContainer = styled.View`
   align-items: center;
   justify-content: center;
   flex: 1;
+`;
+
+export const PaymentProcessing = styled(ActivityIndicator).attrs({
+  size: 128,
+  animating: true,
+  color: Colors.blue300,
+})`
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  z-index: 999;
 `;
 
 export const CartIcon = styled(Avatar.Icon).attrs({
@@ -93,6 +110,25 @@ export const CheckoutButton = styled(Button).attrs({
   margin-bottom: ${(props) => props.theme.spacing.sizes.small};
   align-self: center;
   width: 80%;
+`;
+
+export const ReturnButton = styled(Button).attrs({
+  color: colors.ui.primary,
+})`
+  padding: ${(props) => props.theme.spacing.sizes.small};
+  margin-top: ${(props) => props.theme.spacing.sizes.medium};
+  margin-bottom: ${(props) => props.theme.spacing.sizes.small};
+  align-self: center;
+  width: 80%;
+`;
+
+export const TopBackButton = styled(Button).attrs({
+  color: colors.ui.primary,
+})`
+  padding: ${(props) => props.theme.spacing.sizes.small};
+  margin: ${(props) => props.theme.spacing.sizes.xsmall};
+  align-self: left;
+  width: 10%;
 `;
 
 export const ClearButton = styled(Button).attrs({

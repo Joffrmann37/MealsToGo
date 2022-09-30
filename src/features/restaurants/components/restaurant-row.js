@@ -5,6 +5,7 @@ import { RestaurantInfoCard } from "../components/restaurant-info-card.component
 import { Spacer } from "../../../components/spacer/spacer.component";
 import appLayout from "../../../../layout.json";
 import { FadeInView } from "../../../components/animations/fade.animation";
+import { CartNavigator } from "../../../infrastructure/navigation/cart.navigator";
 
 const onRowPress = (nav, destination, item) => {
   nav.navigate(destination.screen, {

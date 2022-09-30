@@ -3,6 +3,8 @@ import { List } from "react-native-paper";
 import { View, ScrollView } from "react-native";
 import { Container } from "../../../components/utilities/safe-area.component";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { TopBackButton } from "../../checkout/components/checkout.styles";
 import menu from "../../../../menu.json";
 import { CartContext } from "../../../services/cart/cart.context";
 import styled from "styled-components/native";
@@ -28,6 +30,9 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
 
   return (
     <Container>
+      <Spacer position="top" size="xsmall">
+        <TopBackButton icon="arrow-left" onPress={() => navigation.goBack()} />
+      </Spacer>
       <RestaurantInfoCard restaurant={restaurant} />
       <ScrollView>
         <List.Section
@@ -66,7 +71,9 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
                       )}
                       onPress={() => {
                         addToCart(item, restaurant);
-                        navigation.navigate("Cart", { item });
+                        navigation.navigate("Cart", {
+                          isPresentedFromAnotherScreen: true,
+                        });
                       }}
                     />
                   </View>

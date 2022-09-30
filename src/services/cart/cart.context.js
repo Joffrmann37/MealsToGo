@@ -9,33 +9,67 @@ export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
 
   const [cart, setCart] = useState([]);
-
+  const [shouldLoad, setShouldLoad] = useState(true);
   const [sum, setSum] = useState(0);
 
-  useEffect(() => {
-    if (!cart.length) {
-      setSum(0);
-      return;
-    }
+  useEffect(
+    () => {
+      loadCart(user.user.uid);
 
-    const newSum = cart.reduce((acc, restaurant) => {
-      let cost = 0;
-      restaurant.items.forEach((item) => {
-        cost += item.price * item.count;
-      });
-      return (acc += cost);
-    }, 0);
-    console.log(parseFloat(newSum).toFixed(2));
-    setSum(parseFloat(newSum).toFixed(2));
-  }, [cart]);
+      if (!cart.length) {
+        if (user && user.user.uid && shouldLoad) {
+          setShouldLoad(false);
+        } else {
+          setSum(0);
+          return;
+        }
+      }
+
+      const newSum = cart.reduce((acc, restaurant) => {
+        let cost = 0;
+        restaurant.items.forEach((item) => {
+          cost += item.price * item.count;
+        });
+        return (acc += cost);
+      }, 0);
+
+      setShouldLoad(false);
+      setSum(parseFloat(newSum).toFixed(2));
+    },
+    [cart, user, shouldLoad],
+    storeCart
+  );
+
+  const storeCart = async (cartArr, uid) => {
+    try {
+      console.log(`Storing cart for ${uid}`);
+      await AsyncStorage.setItem(`@cart-${uid}`, JSON.stringify(cartArr));
+      const value = await AsyncStorage.getItem(`@cart-${uid}`);
+    } catch (error) {
+      // Error saving data
+    }
+  };
+
+  const loadCart = async (uid) => {
+    // try {
+    //   await AsyncStorage.removeItem(`@cart-${uid}`);
+    //   return true;
+    // } catch (exception) {
+    //   return false;
+    // }
+    try {
+      const value = await AsyncStorage.getItem(`@cart-${uid}`);
+      return value != null ? setCart(JSON.parse(value)) : null;
+    } catch (e) {}
+  };
 
   const add = (item, rst) => {
     item.restaurantId = rst.placeId;
     const filteredRestaurants = JSON.parse(JSON.stringify(cart)).filter(
       (filteredRestaurant) => rst.placeId === filteredRestaurant.placeId
     );
-    if (rst.items) {
-      const items = JSON.parse(JSON.stringify(rst.items));
+    if (filteredRestaurants.length && filteredRestaurants[0].items) {
+      const items = filteredRestaurants[0].items;
       const filteredItems = items.filter(
         (filteredItem) =>
           item.id === filteredItem.id &&
@@ -46,20 +80,37 @@ export const CartContextProvider = ({ children }) => {
         filteredRestaurants.length > 0 &&
         item.restaurantId === filteredItems[0].restaurantId
       ) {
-        item.count += 1;
+        console.log(`Existing count: ${filteredItems[0].count}`);
+        filteredItems[0].count += 1;
+        console.log(`Updated count: ${filteredItems[0].count}`);
       } else {
+        console.log("Same item");
         item.count = 1;
         rst.items.push(item);
       }
     } else {
       item.count = 1;
+      console.log(item.count);
       rst.items = [item];
     }
 
-    if (!cart.includes(rst)) {
+    if (!cart.includes(rst) && !filteredRestaurants.length) {
       setCart([...cart, rst]);
+      console.log("Adding restaurant");
     } else {
       setCart([...cart]);
+    }
+
+    if (user && user.user.uid) {
+      if (filteredRestaurants.length) {
+        console.log("Has restaurant");
+        const index = cart.findIndex((rest) => rest.placeId === rst.placeId);
+        cart[index] = filteredRestaurants[0];
+        console.log("Restaurant index: " + index);
+        storeCart([...cart], user.user.uid);
+        return;
+      }
+      storeCart([...cart, rst], user.user.uid);
     }
   };
 
@@ -140,25 +191,12 @@ export const CartContextProvider = ({ children }) => {
           clear();
         }
       } else {
-        // if (filteredRestaurants.length) {
-        //   console.log(`You have two items now: ${rst.items.length}`);
-        //   const arr =
-        //     rst.items.length > 0
-        //       ? [...filteredRestaurants, ...filteredRestaurantsNotIncluded]
-        //       : [...filteredRestaurantsNotIncluded];
-        //   setCart(arr);
-        // }
-        // const indexOfObject = rst.items.findIndex((itemObj) => {
-        //   return item.id === itemObj.id;
-        // });
-        // rst.items.splice(indexOfObject, 1);
-        // const restaurantIndex = cart.findIndex((restaurantObj) => {
-        //   return rst.placeId === restaurantObj.placeId;
-        // });
-        // console.log(`Index: ${restaurantIndex}`);
-        // cart[restaurantIndex] = rst;
         setCart([...cart]);
       }
+    }
+
+    if (user && user.user.uid && cart.length) {
+      storeCart([...cart], user.user.uid);
     }
   };
 
@@ -167,6 +205,9 @@ export const CartContextProvider = ({ children }) => {
       rst.items = [];
     });
     setCart([]);
+    if (user && user.user.uid) {
+      storeCart([], user.user.uid);
+    }
   };
 
   return (

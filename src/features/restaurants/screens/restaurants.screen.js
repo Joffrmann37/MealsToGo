@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+
 import { Container } from "../../../components/utilities/safe-area.component";
 import { LocationContext } from "../../../services/location/location.context";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
