@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { CustomCreditCardInput } from "../components/credit-card.component";
 import { NameInput, PaymentProcessing } from "../components/checkout.styles";
 import { Text } from "../../../components/typography/text.component";
@@ -49,65 +49,73 @@ export const CheckoutScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Container>
-      {isPresented && (
-        <Spacer position="top" size="xsmall">
-          <TopBackButton
-            icon="arrow-left"
-            onPress={() => navigation.goBack()}
-          />
-        </Spacer>
-      )}
-      {isLoading && <PaymentProcessing />}
-      <ScrollView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+      keyboardVerticalOffset={100}
+      enabled
+    >
+      <Container>
         {isPresented && (
-          <Spacer position="top" size="small">
-            <Text>Your Order</Text>
+          <Spacer position="top" size="xsmall">
+            <TopBackButton
+              icon="arrow-left"
+              onPress={() => navigation.goBack()}
+            />
           </Spacer>
         )}
-        {restaurants.map((restaurant, index) => {
-          return (
-            <MyComponent restaurant={restaurant} index={index} key={index} />
-          );
-        })}
-        <Text>Total: ${sum}</Text>
-        <Spacer position="top" size="medium">
-          <NameInput
-            value={name}
-            placeholder="Enter Full Name"
-            onChangeText={(t) => {
-              setName(t);
-            }}
-          />
-        </Spacer>
-        <Spacer position="top" size="medium">
-          {name.length > 0 && (
-            <CustomCreditCardInput
-              name={name}
-              onSuccess={setCard}
-              onError={() =>
-                navigation.navigate("CheckoutError", {
-                  error: "Something went wrong processing your credit card",
-                })
-              }
-            />
-          )}
-        </Spacer>
-        {name.length > 0 && (
-          <>
-            <Spacer position="top" size="medium">
-              <CheckoutButton
-                icon="cash-register"
-                mode="contained"
-                disabled={isLoading}
-                onPress={onPay}
-              >
-                Complete Order
-              </CheckoutButton>
+        {isLoading && <PaymentProcessing />}
+        <ScrollView>
+          {isPresented && (
+            <Spacer position="top" size="small">
+              <Text>Your Order</Text>
             </Spacer>
-          </>
-        )}
-      </ScrollView>
-    </Container>
+          )}
+          {restaurants.map((restaurant, index) => {
+            return (
+              <MyComponent restaurant={restaurant} index={index} key={index} />
+            );
+          })}
+          <Text>Total: ${sum}</Text>
+          <Spacer position="top" size="medium">
+            <NameInput
+              value={name}
+              placeholder="Enter Full Name"
+              onChangeText={(t) => {
+                setName(t);
+              }}
+            />
+          </Spacer>
+          <Spacer position="top" size="medium">
+            {name.length > 0 && (
+              <CustomCreditCardInput
+                name={name}
+                autoFocus={true}
+                onSuccess={setCard}
+                onError={() =>
+                  navigation.navigate("CheckoutError", {
+                    error: "Something went wrong processing your credit card",
+                  })
+                }
+              />
+            )}
+          </Spacer>
+          {name.length > 0 && (
+            <>
+              <Spacer position="top" size="medium">
+                <CheckoutButton
+                  icon="cash-register"
+                  mode="contained"
+                  disabled={isLoading}
+                  onPress={onPay}
+                >
+                  Complete Order
+                </CheckoutButton>
+              </Spacer>
+            </>
+          )}
+        </ScrollView>
+      </Container>
+    </KeyboardAvoidingView>
   );
 };

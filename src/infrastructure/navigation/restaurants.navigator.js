@@ -32,7 +32,7 @@ export const RestaurantsNavigator = () => {
         }}
       />
       <RestaurantStack.Screen
-        name="Cart"
+        name="CartScreen"
         component={CartScreen}
         options={{
           headerShown: false,

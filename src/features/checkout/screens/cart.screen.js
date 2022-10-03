@@ -53,7 +53,7 @@ export const CartScreen = ({ route, navigation }) => {
       : false;
   const { cart, clearCart, sum, isLoading } = useContext(CartContext);
   const restaurants = cart;
-  console.log(`Is loading? ${isLoading}`);
+
   if (!cart.length || !restaurants.length) {
     return (
       <Container>

@@ -18,7 +18,14 @@ export const CartNavigator = () => {
         ...TransitionPresets.ModalPresentationIOS,
       }}
     >
-      <CartStack.Screen name="Cart" component={CartScreen} />
+      <CartStack.Screen
+        name="CartScr"
+        options={{
+          header: () => null,
+          headerTitle: "Cart",
+        }}
+        component={CartScreen}
+      />
       <CartStack.Screen name="Checkout" component={CheckoutScreen} />
       <CartStack.Screen
         name="CheckoutSuccess"

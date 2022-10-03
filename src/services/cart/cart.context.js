@@ -14,7 +14,9 @@ export const CartContextProvider = ({ children }) => {
 
   useEffect(
     () => {
-      loadCart(user.user.uid);
+      if (shouldLoad) {
+        loadCart(user.user.uid);
+      }
 
       if (!cart.length) {
         if (user && user.user.uid && shouldLoad) {
