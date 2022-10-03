@@ -7,7 +7,7 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState([]);
   const [shouldLoad, setShouldLoad] = useState(true);
   const [sum, setSum] = useState(0);
@@ -43,11 +43,20 @@ export const CartContextProvider = ({ children }) => {
   const storeCart = async (cartArr, uid) => {
     try {
       console.log(`Storing cart for ${uid}`);
+      setIsLoading(true);
       await AsyncStorage.setItem(`@cart-${uid}`, JSON.stringify(cartArr));
-      const value = await AsyncStorage.getItem(`@cart-${uid}`);
+      setIsLoading(false);
     } catch (error) {
       // Error saving data
     }
+  };
+
+  const deleteCart = async (uid) => {
+    try {
+      setIsLoading(true);
+      await AsyncStorage.removeItem(`@cart-${uid}`);
+      setIsLoading(false);
+    } catch (error) {}
   };
 
   const loadCart = async (uid) => {
@@ -86,7 +95,8 @@ export const CartContextProvider = ({ children }) => {
       } else {
         console.log("Same item");
         item.count = 1;
-        rst.items.push(item);
+        console.log(rst);
+        filteredRestaurants[0].items.push(item);
       }
     } else {
       item.count = 1;
@@ -206,7 +216,7 @@ export const CartContextProvider = ({ children }) => {
     });
     setCart([]);
     if (user && user.user.uid) {
-      storeCart([], user.user.uid);
+      deleteCart(user.user.uid);
     }
   };
 
@@ -217,6 +227,7 @@ export const CartContextProvider = ({ children }) => {
         removeFromCart: remove,
         clearCart: clear,
         setSum,
+        isLoading,
         cart,
         sum,
       }}

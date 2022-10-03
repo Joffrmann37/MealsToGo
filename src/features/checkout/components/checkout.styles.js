@@ -5,6 +5,7 @@ import {
   TextInput,
   Button,
   ActivityIndicator,
+  Colors,
 } from "react-native-paper";
 import {
   AntDesign,
@@ -12,7 +13,6 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { colors } from "../../../infrastructure/theme/colors";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const CartIconContainer = styled.View`
   align-items: center;
@@ -21,6 +21,17 @@ export const CartIconContainer = styled.View`
 `;
 
 export const PaymentProcessing = styled(ActivityIndicator).attrs({
+  size: 128,
+  animating: true,
+  color: Colors.blue300,
+})`
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  z-index: 999;
+`;
+
+export const CartLoader = styled(ActivityIndicator).attrs({
   size: 128,
   animating: true,
   color: Colors.blue300,

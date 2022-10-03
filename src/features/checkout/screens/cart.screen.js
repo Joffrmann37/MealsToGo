@@ -13,6 +13,7 @@ import {
   CheckoutButton,
   ClearButton,
   TopBackButton,
+  CartLoader,
 } from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 
@@ -49,8 +50,9 @@ export const CartScreen = ({ route, navigation }) => {
     route.params !== undefined
       ? route.params.isPresentedFromAnotherScreen
       : false;
-  const { cart, clearCart, sum } = useContext(CartContext);
+  const { cart, clearCart, sum, isLoading } = useContext(CartContext);
   const restaurants = cart;
+  console.log(`Is loading? ${isLoading}`);
   if (!cart.length || !restaurants.length) {
     return (
       <Container>
@@ -71,40 +73,43 @@ export const CartScreen = ({ route, navigation }) => {
           />
         </Spacer>
       )}
-      <ScrollView>
-        {isPresented && (
-          <Spacer position="top" size="small">
-            <Text>Your Order</Text>
+      {isLoading && <CartLoader />}
+      {!isLoading && (
+        <ScrollView>
+          {isPresented && (
+            <Spacer position="top" size="small">
+              <Text>Your Order</Text>
+            </Spacer>
+          )}
+          {restaurants.map((restaurant, index) => {
+            return (
+              <MyComponent restaurant={restaurant} index={index} key={index} />
+            );
+          })}
+          <Text>Total: ${sum}</Text>
+          <Spacer position="top" size="xsmall">
+            <CheckoutButton
+              icon="cash-register"
+              mode="contained"
+              onPress={() => {
+                navigation.navigate("Checkout", {
+                  cart,
+                  sum,
+                  restaurants,
+                  isPresentedFromAnotherScreen: isPresented,
+                });
+              }}
+            >
+              Proceed To Checkout
+            </CheckoutButton>
           </Spacer>
-        )}
-        {restaurants.map((restaurant, index) => {
-          return (
-            <MyComponent restaurant={restaurant} index={index} key={index} />
-          );
-        })}
-        <Text>Total: ${sum}</Text>
-        <Spacer position="top" size="xsmall">
-          <CheckoutButton
-            icon="cash-register"
-            mode="contained"
-            onPress={() => {
-              navigation.navigate("Checkout", {
-                cart,
-                sum,
-                restaurants,
-                isPresentedFromAnotherScreen: isPresented,
-              });
-            }}
-          >
-            Proceed To Checkout
-          </CheckoutButton>
-        </Spacer>
-        <Spacer position="top" size="xsmall">
-          <ClearButton icon="cart-off" mode="contained" onPress={clearCart}>
-            Clear Cart
-          </ClearButton>
-        </Spacer>
-      </ScrollView>
+          <Spacer position="top" size="xsmall">
+            <ClearButton icon="cart-off" mode="contained" onPress={clearCart}>
+              Clear Cart
+            </ClearButton>
+          </Spacer>
+        </ScrollView>
+      )}
     </Container>
   );
 };
