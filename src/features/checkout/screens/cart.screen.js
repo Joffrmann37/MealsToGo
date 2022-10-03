@@ -14,6 +14,7 @@ import {
   ClearButton,
   TopBackButton,
   CartLoader,
+  CartLoaderContainer,
 } from "../components/checkout.styles";
 import { ItemImage } from "../../../components/ui/list-styles";
 
@@ -73,7 +74,11 @@ export const CartScreen = ({ route, navigation }) => {
           />
         </Spacer>
       )}
-      {isLoading && <CartLoader />}
+      {isLoading && (
+        <CartLoaderContainer>
+          <CartLoader />
+        </CartLoaderContainer>
+      )}
       {!isLoading && (
         <ScrollView>
           {isPresented && (

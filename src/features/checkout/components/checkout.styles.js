@@ -31,16 +31,17 @@ export const PaymentProcessing = styled(ActivityIndicator).attrs({
   z-index: 999;
 `;
 
+export const CartLoaderContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
+
 export const CartLoader = styled(ActivityIndicator).attrs({
-  size: 128,
+  size: 92,
   animating: true,
   color: Colors.blue300,
-})`
-  position: absolute;
-  top: 35%;
-  left: 35%;
-  z-index: 999;
-`;
+})``;
 
 export const CartIcon = styled(Avatar.Icon).attrs({
   size: 128,
