@@ -15,10 +15,13 @@ export const payRequest = (token, amount, name) => {
       amount,
     }),
     method: "POST",
-  }).then((res) => {
-    if (res.status > 200) {
-      return Promise.reject("Something went wrong processing your payment");
-    }
-    return res.json();
-  });
+  })
+    .then((res) => {
+      if (res.status > 200) {
+        return Promise.reject("Something went wrong processing your payment");
+      }
+    })
+    .then((json) => {
+      return json;
+    });
 };
