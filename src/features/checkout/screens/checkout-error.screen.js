@@ -8,11 +8,13 @@ import {
   CartIcon,
   ReturnButton,
 } from "../components/checkout.styles";
+import { colors } from "../../../infrastructure/theme/colors";
 
-export const CheckoutSuccessScreen = ({ route, navigation }) => {
+export const CheckoutErrorScreen = ({ navigation, route }) => {
   const returnHome = () => {
     navigation.popToTop();
   };
+  const { error = "" } = route.params;
   const isPresented =
     route.params !== undefined
       ? route.params.isPresentedFromAnotherScreen
@@ -20,9 +22,20 @@ export const CheckoutSuccessScreen = ({ route, navigation }) => {
   return (
     <Container>
       <CartIconContainer>
-        <CartIcon icon="check-bold" />
-        <Text variant="label">Success!</Text>
+        <CartIcon icon="close" bg={colors.ui.error} />
+        <Spacer position="top" size="small">
+          <Text variant="label">{error}</Text>
+        </Spacer>
         <Spacer position="top" size="medium">
+          <ReturnButton
+            icon="arrow-left"
+            mode="contained"
+            onPress={() => navigation.goBack()}
+          >
+            Retry Payment
+          </ReturnButton>
+        </Spacer>
+        <Spacer position="top" size="small">
           {isPresented ? (
             <ReturnButton icon="home" mode="contained" onPress={returnHome}>
               Return to dashboard

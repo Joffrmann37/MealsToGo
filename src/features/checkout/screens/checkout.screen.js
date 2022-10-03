@@ -31,6 +31,7 @@ export const CheckoutScreen = ({ route, navigation }) => {
       });
       return;
     }
+    console.log(sum * 100);
     payRequest(card.id, sum * 100, name)
       .then((result) => {
         setIsLoading(false);
@@ -41,8 +42,9 @@ export const CheckoutScreen = ({ route, navigation }) => {
       })
       .catch((err) => {
         setIsLoading(false);
+        console.log(err.message);
         navigation.navigate("CheckoutError", {
-          error: err,
+          error: err.message,
           isPresentedFromAnotherScreen: isPresented,
         });
       });

@@ -5,8 +5,8 @@ import {
 } from "@react-navigation/stack";
 import { CartScreen } from "../../features/checkout/screens/cart.screen";
 import { CheckoutScreen } from "../../features/checkout/screens/checkout.screen";
-import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-success.screen";
-import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-error.screen";
+import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-error.screen";
+import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-success.screen";
 
 const CartStack = createStackNavigator();
 

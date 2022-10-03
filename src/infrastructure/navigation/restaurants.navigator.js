@@ -7,8 +7,8 @@ import { RestaurantsScreen } from "../../features/restaurants/screens/restaurant
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant.detail.screen";
 import { CartScreen } from "../../features/checkout/screens/cart.screen";
 import { CheckoutScreen } from "../../features/checkout/screens/checkout.screen";
-import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-error.screen";
-import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-success.screen";
+import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-success.screen";
+import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-error.screen";
 
 const RestaurantStack = createStackNavigator();
 
